@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+    volumes:
+      - ./src:/var/www/html
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: password
+      MARIADB_ROOT_PASSWORD: rootpass
+    ports:
+      - 3306:3306
+
+volumes:
+  db:
